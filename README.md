@@ -70,21 +70,27 @@ Beberapa variabel yang digunakan dalam analisis antara lain:
 
 ## 🔎 Data Preparation
 
-Tahapan data preparation dilakukan untuk memastikan data dapat digunakan untuk proses analisis.
+Dataset awal terdiri dari 1.470 baris dan 35 kolom.
 
-Tahapan yang dilakukan meliputi:
+Pada tahap awal dilakukan pemeriksaan terhadap struktur data, missing values, dan data duplikat. Hasil pemeriksaan menunjukkan bahwa dataset tidak memiliki data duplikat, namun terdapat missing values pada kolom `Attrition` sebanyak 412 baris.
 
-1. Memeriksa struktur dan ukuran dataset.
-2. Memeriksa tipe data setiap kolom.
-3. Memeriksa missing values.
-4. Memeriksa data duplikat.
-5. Menangani missing values pada kolom `Attrition`.
-6. Mengubah beberapa variabel kategorikal menjadi label yang lebih mudah dipahami.
-7. Menyiapkan dataset hasil cleaning untuk disimpan ke database.
+Karena `Attrition` merupakan variabel utama yang digunakan untuk menentukan apakah seorang karyawan meninggalkan perusahaan atau tidak, baris dengan nilai `Attrition` yang kosong tidak dapat digunakan dalam analisis attrition.
 
-Data dengan nilai `Attrition` yang kosong tidak digunakan dalam analisis karena variabel tersebut merupakan target utama yang digunakan untuk menghitung tingkat attrition.
+Oleh karena itu, dilakukan penghapusan baris yang memiliki nilai kosong pada kolom `Attrition`.
 
-Setelah proses cleaning, diperoleh **1.058 data karyawan** yang digunakan dalam analisis.
+### Kondisi Data
+
+| Kondisi | Jumlah |
+|---|---:|
+| Data awal | 1.470 baris |
+| Jumlah kolom | 35 |
+| Missing value pada `Attrition` | 412 |
+| Data duplikat | 0 |
+| Data setelah cleaning | 1.058 baris |
+
+Setelah proses cleaning, diperoleh 1.058 data karyawan yang digunakan untuk tahap Exploratory Data Analysis (EDA) dan pembuatan dashboard.
+
+Selain penanganan missing values, beberapa variabel kategorikal juga disesuaikan agar lebih mudah dipahami pada tahap analisis dan visualisasi.
 
 ---
 
