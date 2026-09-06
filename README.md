@@ -1,193 +1,288 @@
-# Analisis Employee Attrition - Jaya Jaya Maju
+# Proyek Akhir: Menyelesaikan Permasalahan Human Resources
 
-## 📌 Deskripsi Proyek
+## Business Understanding
 
-Proyek ini merupakan proyek analisis data untuk mengidentifikasi faktor-faktor yang berkaitan dengan tingginya tingkat employee attrition pada perusahaan Jaya Jaya Maju.
+Jaya Jaya Maju merupakan perusahaan yang memiliki lebih dari 1.000 karyawan. Perusahaan menghadapi permasalahan employee attrition yang cukup tinggi. Tingginya jumlah karyawan yang meninggalkan perusahaan dapat meningkatkan biaya rekrutmen dan pelatihan, mengganggu produktivitas, serta menyebabkan hilangnya pengalaman dan pengetahuan yang dimiliki karyawan.
 
-Jaya Jaya Maju merupakan perusahaan yang memiliki lebih dari 1.000 karyawan. Berdasarkan permasalahan yang diberikan, perusahaan memiliki tingkat attrition yang cukup tinggi sehingga diperlukan analisis untuk membantu departemen Human Resources (HR) memahami faktor-faktor yang berkaitan dengan karyawan yang meninggalkan perusahaan.
+Proyek ini dilakukan untuk membantu departemen Human Resources (HR) memahami karakteristik karyawan yang melakukan attrition serta faktor-faktor yang berkaitan dengan employee attrition. Hasil analisis kemudian disajikan dalam business dashboard menggunakan Metabase sehingga dapat digunakan sebagai alat monitoring dan pendukung pengambilan keputusan berbasis data.
 
-Analisis dilakukan menggunakan Python untuk proses data preparation dan exploratory data analysis (EDA), PostgreSQL sebagai database, serta Metabase sebagai business intelligence tool untuk membangun dashboard interaktif.
+Analisis dilakukan menggunakan Python dan Pandas untuk data preparation serta Exploratory Data Analysis (EDA), PostgreSQL sebagai database hasil pengolahan data, dan Metabase sebagai business intelligence tool untuk membangun dashboard.
 
----
+### Permasalahan Bisnis
 
-## 🎯 Business Understanding
+1. Berapa jumlah karyawan yang keluar dan berapa tingkat employee attrition perusahaan?
+2. Departemen mana yang memiliki tingkat attrition paling tinggi?
+3. Apakah status overtime berkaitan dengan tingkat attrition?
+4. Apakah tingkat job satisfaction berkaitan dengan attrition?
+5. Apakah terdapat job role tertentu yang memiliki tingkat attrition tinggi?
+6. Apakah masa kerja karyawan berkaitan dengan tingkat attrition?
+7. Apakah karakteristik seperti pendapatan, usia, dan work-life balance menunjukkan pola tertentu pada karyawan yang melakukan attrition?
+8. Bagaimana hasil analisis dapat digunakan HR untuk menentukan prioritas strategi retensi karyawan?
 
-### Permasalahan
+### Cakupan Proyek
 
-Departemen Human Resources (HR) Jaya Jaya Maju mengalami permasalahan terkait tingginya tingkat employee attrition.
+Cakupan proyek meliputi:
 
-HR membutuhkan informasi yang dapat membantu menjawab pertanyaan berikut:
+- Memahami struktur dan karakteristik dataset employee attrition.
+- Melakukan pemeriksaan kualitas data, termasuk missing value dan data duplikat.
+- Melakukan data cleaning dengan menghapus baris yang tidak memiliki nilai pada kolom `Attrition`.
+- Melakukan perubahan tipe data pada `EmployeeId`.
+- Melakukan labeling pada beberapa variabel kategorikal agar hasil analisis lebih mudah dipahami.
+- Melakukan Exploratory Data Analysis (EDA) untuk menganalisis employee attrition berdasarkan:
+  - Attrition secara keseluruhan.
+  - Department.
+  - OverTime.
+  - Job Satisfaction.
+  - YearsAtCompany.
+  - MonthlyIncome.
+  - Age.
+  - Work-Life Balance.
+  - Korelasi variabel numerik.
+- Menyimpan hasil data cleaning sebagai `employee_data_clean.csv`.
+- Menyimpan data hasil pengolahan pada PostgreSQL sebagai sumber data dashboard.
+- Membuat business dashboard menggunakan Metabase.
+- Menyusun insight dan rekomendasi action items untuk membantu HR mengurangi employee attrition.
 
-1. Berapa jumlah karyawan dan berapa banyak karyawan yang meninggalkan perusahaan?
-2. Berapa tingkat attrition perusahaan?
-3. Departemen mana yang memiliki tingkat attrition paling tinggi?
-4. Apakah overtime berkaitan dengan tingkat attrition?
-5. Apakah tingkat kepuasan kerja berkaitan dengan attrition?
-6. Apakah terdapat job role tertentu yang memiliki tingkat attrition tinggi?
-7. Apakah masa kerja karyawan berkaitan dengan tingkat attrition?
+### Persiapan
 
-### Tujuan
+Sumber data: [employee_data.csv](https://www.kaggle.com/datasets/pavansubhasht/ibm-hr-analytics-attrition-dataset)
 
-Tujuan dari proyek ini adalah:
+Dataset yang digunakan merupakan IBM HR Analytics Employee Attrition & Performance Dataset yang terdiri dari 1.470 baris dan 35 kolom. Dataset asli memiliki informasi mengenai karakteristik karyawan, pekerjaan, kompensasi, kepuasan kerja, dan status attrition.
 
-- Mengidentifikasi tingkat employee attrition.
-- Menganalisis faktor-faktor yang berkaitan dengan employee attrition.
-- Menyajikan hasil analisis dalam bentuk dashboard yang mudah dipahami.
-- Memberikan insight yang dapat membantu HR dalam menentukan strategi untuk mengurangi tingkat attrition.
+> **Catatan:** Dataset tidak disertakan kembali di dalam submission. Unduh dataset dari sumber di atas dan simpan dengan nama `employee_data.csv` pada folder proyek agar notebook dapat dijalankan.
 
----
+Setup environment:
 
-## 📊 Dataset
+**Versi Python:** Python 3.11.x
 
-Dataset yang digunakan merupakan data employee attrition yang berisi informasi mengenai karakteristik karyawan, pekerjaan, kepuasan kerja, kompensasi, dan status attrition.
+1. Clone atau download repository proyek, kemudian masuk ke folder proyek.
 
-Data yang digunakan dalam analisis akhir terdiri dari:
+2. Buat virtual environment:
 
-- **1.058 karyawan**
-- **35 kolom**
+```bash
+python -m venv venv
+```
 
-Beberapa variabel yang digunakan dalam analisis antara lain:
+3. Aktifkan virtual environment.
 
-| Variabel | Deskripsi |
-|---|---|
-| EmployeeId | ID karyawan |
-| Age | Usia karyawan |
-| Attrition | Status karyawan meninggalkan perusahaan atau tidak |
-| BusinessTravel | Frekuensi perjalanan bisnis |
-| Department | Departemen karyawan |
-| DistanceFromHome | Jarak rumah ke tempat kerja |
-| JobRole | Jabatan/peran pekerjaan |
-| JobSatisfaction | Tingkat kepuasan kerja |
-| MonthlyIncome | Pendapatan bulanan |
-| OverTime | Status lembur |
-| TotalWorkingYears | Total pengalaman kerja |
-| YearsAtCompany | Lama bekerja di perusahaan |
-| YearsInCurrentRole | Lama berada pada posisi saat ini |
-| YearsSinceLastPromotion | Lama sejak promosi terakhir |
-| YearsWithCurrManager | Lama bekerja dengan manajer saat ini |
+Windows:
 
----
+```bash
+venv\Scripts\activate
+```
 
-## 🔎 Data Preparation
+macOS/Linux:
 
-Dataset awal terdiri dari 1.470 baris dan 35 kolom.
+```bash
+source venv/bin/activate
+```
 
-Pada tahap awal dilakukan pemeriksaan terhadap struktur data, missing values, dan data duplikat. Hasil pemeriksaan menunjukkan bahwa dataset tidak memiliki data duplikat, namun terdapat missing values pada kolom `Attrition` sebanyak 412 baris.
+4. Install seluruh dependency dari `requirements.txt`:
 
-Karena `Attrition` merupakan variabel utama yang digunakan untuk menentukan apakah seorang karyawan meninggalkan perusahaan atau tidak, baris dengan nilai `Attrition` yang kosong tidak dapat digunakan dalam analisis attrition.
+```bash
+pip install -r requirements.txt
+```
 
-Oleh karena itu, dilakukan penghapusan baris yang memiliki nilai kosong pada kolom `Attrition`.
-
-### Kondisi Data
-
-| Kondisi | Jumlah |
-|---|---:|
-| Data awal | 1.470 baris |
-| Jumlah kolom | 35 |
-| Missing value pada `Attrition` | 412 |
-| Data duplikat | 0 |
-| Data setelah cleaning | 1.058 baris |
-
-Setelah proses cleaning, diperoleh 1.058 data karyawan yang digunakan untuk tahap Exploratory Data Analysis (EDA) dan pembuatan dashboard.
-
-Selain penanganan missing values, beberapa variabel kategorikal juga disesuaikan agar lebih mudah dipahami pada tahap analisis dan visualisasi.
-
----
-
-## 📈 Exploratory Data Analysis
-
-Exploratory Data Analysis (EDA) dilakukan untuk memahami karakteristik data dan menemukan pola yang berkaitan dengan employee attrition.
-
-Beberapa analisis yang dilakukan meliputi:
-
-### 1. Attrition Rate
-
-Menghitung jumlah karyawan yang meninggalkan perusahaan dan tingkat attrition secara keseluruhan.
-
-### 2. Attrition berdasarkan Department
-
-Menganalisis perbedaan tingkat attrition antar departemen.
-
-### 3. Attrition berdasarkan Overtime
-
-Menganalisis hubungan antara status lembur dengan tingkat attrition.
-
-### 4. Attrition berdasarkan Job Satisfaction
-
-Menganalisis tingkat attrition berdasarkan tingkat kepuasan kerja.
-
-### 5. Attrition berdasarkan Job Role
-
-Mengidentifikasi job role yang memiliki tingkat attrition relatif tinggi.
-
-### 6. Attrition berdasarkan Tenure
-
-Menganalisis tingkat attrition berdasarkan kelompok masa kerja:
-
-- 0–2 Years
-- 3–5 Years
-- 6–10 Years
-- >10 Years
-
----
-
-## 🗄️ Database
-
-Dataset hasil cleaning disimpan pada database PostgreSQL.
-
-Database digunakan sebagai sumber data untuk dashboard Metabase.
-
-Alur pengolahan data:
+5. Siapkan dataset:
 
 ```text
-Dataset
-   ↓
+proyek-hr-jaya-jaya-maju/
+├── employee_data.csv
+├── notebook.ipynb
+├── requirements.txt
+├── README.md
+├── metabase.db.mv.db
+└── septabagass_dicoding-dashboard.png
+```
+
+6. Buka dan jalankan `notebook.ipynb` secara berurutan dari bagian **Persiapan**, **Data Understanding**, **Data Preparation / Preprocessing**, **Exploratory Data Analysis (EDA)**, hingga **Conclusion**.
+
+Jika menjalankan notebook secara lokal, ubah kode pembacaan dataset dari path Google Colab:
+
+```python
+df = pd.read_csv('/content/employee_data.csv')
+```
+
+menjadi:
+
+```python
+df = pd.read_csv('employee_data.csv')
+```
+
+7. Setelah seluruh proses notebook selesai, file `employee_data_clean.csv` akan dihasilkan sebagai data hasil cleaning.
+
+8. Data hasil cleaning kemudian digunakan sebagai sumber data untuk PostgreSQL dan dashboard Metabase.
+
+## Business Dashboard
+
+Business dashboard dibuat menggunakan **Metabase v0.46.4**. Dashboard digunakan untuk memantau employee attrition berdasarkan beberapa dimensi, seperti department, overtime, job satisfaction, job role, dan masa kerja.
+
+Screenshot dashboard tersedia pada file:
+
+`septabagass_dicoding-dashboard.png`
+
+### Menjalankan Metabase dengan Docker
+
+Pastikan Docker Desktop sudah terpasang dan sedang berjalan.
+
+1. Pastikan file berikut berada pada folder proyek:
+
+```text
+metabase.db.mv.db
+```
+
+2. Download image Metabase versi yang digunakan:
+
+```bash
+docker pull metabase/metabase:v0.46.4
+```
+
+3. Jalankan container Metabase:
+
+```bash
+docker run -d -p 3000:3000 --name metabase metabase/metabase:v0.46.4
+```
+
+4. Tunggu beberapa saat sampai container selesai melakukan proses startup. Periksa status dengan:
+
+```bash
+docker logs -f metabase
+```
+
+Tekan `Ctrl + C` untuk keluar dari tampilan log tanpa menghentikan container.
+
+5. Hentikan container sebelum mengganti database aplikasi Metabase:
+
+```bash
+docker stop metabase
+```
+
+6. Salin file `metabase.db.mv.db` dari folder proyek ke lokasi database Metabase di dalam container:
+
+```bash
+docker cp metabase.db.mv.db metabase:/metabase.db/metabase.db.mv.db
+```
+
+Lokasi `/metabase.db/metabase.db.mv.db` merupakan lokasi default application database H2 pada container Metabase. Setelah database diganti, jalankan kembali container:
+
+```bash
+docker start metabase
+```
+
+7. Periksa apakah Metabase sudah berjalan:
+
+```bash
+docker ps
+```
+
+Kemudian buka:
+
+[http://localhost:3000](http://localhost:3000)
+
+### Kredensial Metabase
+
+Database Metabase yang disertakan dalam submission telah memiliki akun yang digunakan saat dashboard dibuat.
+
+- **Email:** `septabagass@gmail.com`
+- **Password:** **gunakan password Metabase yang digunakan saat membuat database/dashboard tersebut.**
+
+> **Penting:** Password Metabase tidak dapat dipulihkan dari file `metabase.db.mv.db` dalam bentuk password asli karena password disimpan sebagai salted hash. Sebelum submission ulang, isi bagian ini dengan password Metabase yang benar-benar digunakan saat login. Jangan mengunggah password ke repository publik jika repository dapat diakses orang lain.
+
+Jika container sebelumnya sudah pernah dibuat dengan nama `metabase`, gunakan:
+
+```bash
+docker rm -f metabase
+```
+
+kemudian ulangi proses pembuatan container dari langkah nomor 2 agar database H2 yang dilampirkan dapat digunakan sejak awal.
+
+### Alur Dashboard
+
+Alur data yang digunakan dalam proyek:
+
+```text
+employee_data.csv
+       ↓
 Python / Pandas
-   ↓
-Data Cleaning & EDA
-   ↓
+       ↓
+Data Cleaning & Labeling
+       ↓
+Exploratory Data Analysis (EDA)
+       ↓
+employee_data_clean.csv
+       ↓
 PostgreSQL
-   ↓
+       ↓
 Metabase
-   ↓
+       ↓
 Business Dashboard
 ```
 
----
+Dashboard digunakan untuk membantu HR memonitor:
+
+- Total karyawan.
+- Jumlah karyawan yang melakukan attrition.
+- Attrition rate.
+- Attrition berdasarkan department.
+- Attrition berdasarkan job role.
+- Attrition berdasarkan overtime.
+- Attrition berdasarkan job satisfaction.
+- Attrition berdasarkan kelompok masa kerja.
+
 ## Conclusion
 
-Hasil exploratory data analysis menunjukkan beberapa pola yang perlu menjadi perhatian departemen Human Resources (HR):
+Berdasarkan hasil analisis terhadap 1.058 data karyawan yang memiliki label `Attrition`, terdapat 179 karyawan yang melakukan attrition dan 879 karyawan yang masih bertahan. Dengan demikian, tingkat attrition keseluruhan adalah sekitar **16,92%**.
 
-1. **Department Sales** memiliki tingkat attrition paling tinggi, yaitu **20,69%**.
-2. Karyawan yang melakukan **overtime** memiliki tingkat attrition sebesar **31,92%**, sedangkan karyawan yang tidak melakukan overtime memiliki tingkat attrition sebesar **10,79%**.
-3. Karyawan dengan tingkat **job satisfaction Low** memiliki tingkat attrition sebesar **22,44%**, sedangkan kelompok Very High memiliki tingkat attrition sebesar **11,47%**.
-4. **Sales Representative** memiliki tingkat attrition paling tinggi dibandingkan job role lainnya, yaitu **43,10%**.
-5. Karyawan dengan masa kerja **0–2 tahun** memiliki tingkat attrition paling tinggi, yaitu **29,96%**. Tingkat attrition kemudian cenderung lebih rendah pada kelompok masa kerja yang lebih panjang.
+Beberapa pola penting yang ditemukan dari hasil Exploratory Data Analysis adalah:
+
+1. **OverTime**
+
+   Karyawan yang melakukan overtime memiliki tingkat attrition sebesar **31,92%**, sedangkan karyawan yang tidak melakukan overtime memiliki tingkat attrition sebesar **10,79%**. Perbedaan ini menunjukkan bahwa overtime merupakan salah satu karakteristik yang perlu menjadi perhatian HR.
+
+2. **Department**
+
+   Department **Sales** memiliki tingkat attrition paling tinggi, yaitu **20,69%**, dibandingkan department lainnya.
+
+3. **Job Role**
+
+   **Sales Representative** memiliki tingkat attrition paling tinggi, yaitu **43,10%**. Kondisi ini perlu dianalisis lebih lanjut dari sisi beban kerja, target, kompensasi, dan peluang pengembangan karier.
+
+4. **Job Satisfaction**
+
+   Karyawan dengan tingkat job satisfaction **Low** memiliki tingkat attrition sebesar **22,44%**, sedangkan kelompok **Very High** memiliki tingkat attrition sebesar **11,47%**. Hal ini menunjukkan bahwa kepuasan kerja perlu menjadi salah satu aspek yang dimonitor oleh HR.
+
+5. **Masa Kerja**
+
+   Kelompok karyawan dengan masa kerja **0–2 tahun** memiliki tingkat attrition paling tinggi, yaitu **29,96%**. Hal ini menunjukkan bahwa periode awal masa kerja merupakan periode penting dalam strategi retensi karyawan.
+
+6. **Karakteristik karyawan**
+
+   Hasil visualisasi juga menunjukkan bahwa karyawan yang melakukan attrition cenderung memiliki usia dan pendapatan yang lebih rendah dibandingkan kelompok yang bertahan. Temuan ini digunakan sebagai dasar untuk analisis lebih lanjut, bukan sebagai bukti hubungan sebab-akibat.
+
+Secara keseluruhan, hasil analisis menunjukkan bahwa employee attrition di Jaya Jaya Maju berkaitan dengan beberapa aspek pekerjaan, terutama overtime, kepuasan kerja, department, job role, dan masa kerja. Dashboard Metabase dapat digunakan sebagai alat monitoring untuk membantu HR melihat perubahan pola attrition dan menentukan area yang perlu mendapatkan perhatian lebih lanjut.
 
 ### Rekomendasi Action Items
 
-Berdasarkan hasil analisis, beberapa rekomendasi yang dapat dipertimbangkan oleh departemen Human Resources (HR) adalah:
+1. **Melakukan monitoring overtime**
 
-1. **Melakukan evaluasi terhadap karyawan yang sering melakukan overtime**
-   
-   Tingkat attrition pada karyawan yang melakukan overtime mencapai 31,92%, lebih tinggi dibandingkan karyawan yang tidak melakukan overtime. HR dapat melakukan monitoring terhadap beban kerja, frekuensi overtime, dan keseimbangan beban pekerjaan untuk mengidentifikasi potensi masalah lebih awal.
+   HR perlu memonitor karyawan yang sering melakukan overtime dan mengevaluasi beban kerja, distribusi pekerjaan, serta keseimbangan antara pekerjaan dan kehidupan pribadi.
 
-2. **Meningkatkan employee satisfaction dan engagement**
-   
-   Kelompok karyawan dengan job satisfaction Low memiliki tingkat attrition yang lebih tinggi. HR dapat melakukan employee survey atau feedback secara berkala untuk mengetahui aspek pekerjaan yang perlu diperbaiki, seperti lingkungan kerja, beban kerja, hubungan dengan atasan, maupun kesempatan pengembangan.
+2. **Memperkuat program onboarding dan retensi karyawan baru**
 
-3. **Memberikan perhatian khusus kepada karyawan baru**
-   
-   Karyawan dengan masa kerja 0–2 tahun memiliki tingkat attrition paling tinggi, yaitu 29,96%. HR dapat memperkuat program onboarding, mentoring, dan evaluasi pada masa awal bekerja agar karyawan lebih mudah beradaptasi dengan lingkungan perusahaan.
+   Karena kelompok masa kerja 0–2 tahun memiliki tingkat attrition paling tinggi, perusahaan dapat memperkuat onboarding, mentoring, evaluasi masa awal kerja, dan komunikasi antara karyawan dengan atasan.
 
-4. **Melakukan evaluasi pada job role dengan attrition tinggi**
-   
-   Sales Representative memiliki tingkat attrition sebesar 43,10%. HR dapat melakukan evaluasi lebih lanjut terhadap karakteristik pekerjaan, beban kerja, target, kompensasi, serta kesempatan pengembangan karier pada job role dengan tingkat attrition tinggi.
+3. **Meningkatkan employee satisfaction**
 
-5. **Memberikan perhatian lebih pada department dengan attrition tinggi**
-   
-   Department Sales memiliki tingkat attrition paling tinggi, yaitu 20,69%. HR dapat melakukan analisis lebih lanjut pada department tersebut untuk memahami karakteristik karyawan yang memiliki risiko attrition lebih tinggi dan menentukan intervensi yang sesuai.
+   HR dapat melakukan employee survey secara berkala untuk mengetahui faktor yang menyebabkan rendahnya job satisfaction serta menyusun program perbaikan berdasarkan hasil survey.
 
-6. **Menggunakan dashboard sebagai alat monitoring HR**
-   
-   Dashboard employee attrition dapat digunakan secara berkala untuk memonitor perubahan tingkat attrition berdasarkan department, overtime, job satisfaction, job role, dan masa kerja. Monitoring secara berkala dapat membantu HR mengidentifikasi perubahan pola attrition dan menentukan prioritas tindak lanjut.
+4. **Melakukan evaluasi terhadap job role dengan attrition tinggi**
+
+   Sales Representative perlu mendapatkan perhatian khusus dengan mengevaluasi target kerja, beban kerja, kompensasi, lingkungan kerja, dan peluang pengembangan karier.
+
+5. **Melakukan evaluasi pada department dengan attrition tinggi**
+
+   Department Sales dapat dianalisis lebih lanjut untuk mengetahui faktor internal yang menyebabkan tingkat attrition lebih tinggi dibandingkan department lain.
+
+6. **Menggunakan dashboard sebagai alat monitoring rutin**
+
+   Dashboard Metabase dapat digunakan secara berkala untuk memantau attrition rate berdasarkan department, job role, overtime, job satisfaction, dan tenure sehingga HR dapat lebih cepat mengidentifikasi perubahan pola dan menentukan prioritas tindakan.
