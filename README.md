@@ -249,10 +249,6 @@ Beberapa pola penting yang ditemukan dari hasil Exploratory Data Analysis adalah
 
    Kelompok karyawan dengan masa kerja **0–2 tahun** memiliki tingkat attrition paling tinggi, yaitu **29,96%**. Hal ini menunjukkan bahwa periode awal masa kerja merupakan periode penting dalam strategi retensi karyawan.
 
-6. **Karakteristik karyawan**
-
-   Hasil visualisasi juga menunjukkan bahwa karyawan yang melakukan attrition cenderung memiliki usia dan pendapatan yang lebih rendah dibandingkan kelompok yang bertahan. Temuan ini digunakan sebagai dasar untuk analisis lebih lanjut, bukan sebagai bukti hubungan sebab-akibat.
-
 Secara keseluruhan, hasil analisis menunjukkan bahwa employee attrition di Jaya Jaya Maju berkaitan dengan beberapa aspek pekerjaan, terutama overtime, kepuasan kerja, department, job role, dan masa kerja. Dashboard Metabase dapat digunakan sebagai alat monitoring untuk membantu HR melihat perubahan pola attrition dan menentukan area yang perlu mendapatkan perhatian lebih lanjut.
 
 ### Rekomendasi Action Items
