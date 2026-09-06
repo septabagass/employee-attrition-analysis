@@ -16,8 +16,6 @@ Analisis dilakukan menggunakan Python dan Pandas untuk data preparation serta Ex
 4. Apakah tingkat job satisfaction berkaitan dengan attrition?
 5. Apakah terdapat job role tertentu yang memiliki tingkat attrition tinggi?
 6. Apakah masa kerja karyawan berkaitan dengan tingkat attrition?
-7. Apakah karakteristik seperti pendapatan, usia, dan work-life balance menunjukkan pola tertentu pada karyawan yang melakukan attrition?
-8. Bagaimana hasil analisis dapat digunakan HR untuk menentukan prioritas strategi retensi karyawan?
 
 ### Cakupan Proyek
 
@@ -47,9 +45,7 @@ Cakupan proyek meliputi:
 
 Sumber data: [employee_data.csv](https://www.kaggle.com/datasets/pavansubhasht/ibm-hr-analytics-attrition-dataset)
 
-Dataset yang digunakan merupakan IBM HR Analytics Employee Attrition & Performance Dataset yang terdiri dari 1.470 baris dan 35 kolom. Dataset asli memiliki informasi mengenai karakteristik karyawan, pekerjaan, kompensasi, kepuasan kerja, dan status attrition.
-
-> **Catatan:** Dataset tidak disertakan kembali di dalam submission. Unduh dataset dari sumber di atas dan simpan dengan nama `employee_data.csv` pada folder proyek agar notebook dapat dijalankan.
+Dataset yang digunakan merupakan Employee Data yang disediakan oleh Dicoding. Dataset ini berisi data demografis, informasi pekerjaan, serta atribut Attrition yang menunjukkan apakah seorang karyawan mengalami attrition atau tidak. Dataset terdiri dari 1.470 data karyawan dengan 35 atribut.
 
 Setup environment:
 
