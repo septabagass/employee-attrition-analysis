@@ -156,8 +156,6 @@ Business Dashboard
 ---
 ## Conclusion
 
-Berdasarkan hasil analisis terhadap 1.058 data karyawan yang telah melalui proses data cleaning, terdapat 179 karyawan yang tercatat meninggalkan perusahaan dengan tingkat employee attrition sebesar **16,92%**.
-
 Hasil exploratory data analysis menunjukkan beberapa pola yang perlu menjadi perhatian departemen Human Resources (HR):
 
 1. **Department Sales** memiliki tingkat attrition paling tinggi, yaitu **20,69%**.
@@ -165,10 +163,6 @@ Hasil exploratory data analysis menunjukkan beberapa pola yang perlu menjadi per
 3. Karyawan dengan tingkat **job satisfaction Low** memiliki tingkat attrition sebesar **22,44%**, sedangkan kelompok Very High memiliki tingkat attrition sebesar **11,47%**.
 4. **Sales Representative** memiliki tingkat attrition paling tinggi dibandingkan job role lainnya, yaitu **43,10%**.
 5. Karyawan dengan masa kerja **0–2 tahun** memiliki tingkat attrition paling tinggi, yaitu **29,96%**. Tingkat attrition kemudian cenderung lebih rendah pada kelompok masa kerja yang lebih panjang.
-
-Secara keseluruhan, hasil analisis menunjukkan bahwa **overtime, job satisfaction, job role, department, dan masa kerja memiliki perbedaan tingkat attrition antar kelompok karyawan**. Faktor-faktor tersebut dapat digunakan sebagai indikator yang perlu diperhatikan HR dalam melakukan monitoring employee attrition.
-
-Perlu diperhatikan bahwa analisis ini menunjukkan **pola dan keterkaitan pada data**, sehingga hasilnya tidak dapat digunakan untuk menyimpulkan hubungan sebab-akibat secara langsung.
 
 ### Rekomendasi Action Items
 
