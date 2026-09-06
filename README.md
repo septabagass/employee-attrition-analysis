@@ -180,9 +180,7 @@ Kemudian buka:
 Database Metabase yang disertakan dalam submission telah memiliki akun yang digunakan saat dashboard dibuat.
 
 - **Email:** `septabagass@gmail.com`
-- **Password:** **gunakan password Metabase yang digunakan saat membuat database/dashboard tersebut.**
-
-> **Penting:** Password Metabase tidak dapat dipulihkan dari file `metabase.db.mv.db` dalam bentuk password asli karena password disimpan sebagai salted hash. Sebelum submission ulang, isi bagian ini dengan password Metabase yang benar-benar digunakan saat login. Jangan mengunggah password ke repository publik jika repository dapat diakses orang lain.
+- **Password:** **sety4metabase**
 
 Jika container sebelumnya sudah pernah dibuat dengan nama `metabase`, gunakan:
 
