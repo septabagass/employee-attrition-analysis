@@ -43,7 +43,7 @@ Cakupan proyek meliputi:
 
 ### Persiapan
 
-Sumber data: [employee_data.csv](https://www.kaggle.com/datasets/pavansubhasht/ibm-hr-analytics-attrition-dataset)
+Sumber data: [employee_data.csv](https://github.com/dicodingacademy/dicoding_dataset/tree/main/employee)
 
 Dataset yang digunakan merupakan Employee Data yang disediakan oleh Dicoding. Dataset ini berisi data demografis, informasi pekerjaan, serta atribut Attrition yang menunjukkan apakah seorang karyawan mengalami attrition atau tidak. Dataset terdiri dari 1.470 data karyawan dengan 35 atribut.
 
